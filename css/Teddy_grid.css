@@ -1,0 +1,19 @@
+.grid {
+  max-width: 1300px;
+  width: 80%;
+  height: auto;
+  margin: 30px auto;
+  /* border: 1px solid #333; */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  justify-content: center;
+  grid-gap: 10px;
+}
+
+.grid-item {
+  width: 200px;
+  height: 200px;
+  background-color: black;
+}
+
+/*# sourceMappingURL=Teddy_grid.css.map */
