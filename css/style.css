@@ -9909,23 +9909,9 @@ h3 {
     border-color: #dee2e6;
   }
 }
-.teddy-grid {
-  max-width: 1300px;
-  width: 100%;
-  height: auto;
-  margin: 30px auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 400px);
-  justify-content: center;
-  grid-gap: 10px;
-}
-
-.grid-item {
-  width: 350px;
-  height: auto;
-}
-.grid-item img {
-  height: 300px;
+.listTeddy {
+  border-bottom: 5px right black;
+  box-shadow: 6px 6px 15px gray;
 }
 
 img {
