@@ -39,10 +39,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Orino</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Boutique</a>
+                        <a class="nav-link" href="Norbert.html">Ourson</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="panier.html">panier</a>
@@ -65,32 +62,71 @@
 
 
         <!-- panier -->
-    <div id="panier">
+        <div id="panier">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Article</th>
+                        <th>Prix: </th>
+                        <p id="price"></p>
+                        <th>Quantité</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-tablebody"></tbody>
+            </table>
 
-  
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Article</th>
-                    <th>Prix: </th> <p id="price"></p>
-                    <th>Quantité</th>
-                </tr>
-            </thead>
-            <tbody id="cart-tablebody"></tbody>
-        </table>
+            <p>Sous total : <span class="subtotal"></span>€</p>
 
-        <p>Sous total : <span class="subtotal"></span>€</p>
-
-        <div class="row">
-            <div class="offset-3">
-                <button class="  btn-primary btn" id="confirm-command">Passer la commande</button>
-            </div>
         </div>
     </div>
-</div>
     <!-- end of panier-->
+    <!-- form-->
+    <div class="container">
+        <div class="row bg-primary my-5">
+            <div class="col text-center text-white">
+                <h2> Passez votre commmande</h2>
+            </div>
+        </div>
+        <form method="post">
+
+            <div class="row">
+                <div class="col text-center">
+                    <label for="email"> Email : <input type="email" required></label></div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <label for="email"> Confirmez email : <input type="email" required></label></div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <label for="pseudo"> Identifiant : <input type="text" required></label></div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <label for="password"> Mot de passe : <input type="=passeword" required></label></div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <label for="email"> Adresse de livraison : <input type="text" required></label></div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <label for="birthday"> Date de naissance : <input type="date" required></label></div>
+            </div>
+
+
+            <div class="row">
+                <div class="col text-center">
+                    <button type="submit" value="submit" class="btn-primary btn" id="confirm-command">Passer la
+                        commande</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- end form-->
+
     <!-- Footer -->
-    <footer class="py-4 bg-dark">
+    <footer class="py-4 my-5 bg-dark">
         <div class="container">
             <div class="row">
                 <p class="col-6 text-center text-white">Copyright &copy; Orinocco 2020</p>
@@ -101,7 +137,7 @@
 
     <!-- end footer-->
 
-<script type="text/javascript" src="js/test.js"> </script>
+    <script type="text/javascript" src="js/test.js"> </script>
 </body>
 
 
