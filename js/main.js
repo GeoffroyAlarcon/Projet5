@@ -15,6 +15,18 @@ const gustav = new teddy("5beaabe91c9d440000a57d96", "Gustav", 4500, "Lorem ipsu
 const Garfunkel = new teddy("5beaacd41c9d440000a57d97", "Garfunkel", 5500, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "http://localhost:3000/images/teddy_5.jpg", ["Beige", "Tan", "Chocolate"]);
 
 
+var request = new XMLHttpRequest();
+request.onreadystatechange = function() {
+    if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+        var response = JSON.parse(this.responseText);
+        console.log(this.responseText);
+    }
+};
+request.open("GET","http://localhost:3000/api/teddies");
+request.send();
+
+
+
 let commandNorbert = document.getElementById("commandNorbert");
 commandNorbert.addEventListener("submit", function(){
 event.preventDefault();
