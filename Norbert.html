@@ -58,45 +58,47 @@
     <div class="row">
 
       <div class="col-lg-9">
-
-        <div class="card mt-4">
-          <img class="card-img-top img-fluid" style="width: 60%" src="images/teddy1.jpg" alt="">
-          <div class="card-body">
-            <h3 class="card-title">Norbert</h3>
-            <div class="col-lg-4">
-              <label for="model"> couleur du modèle </label>
-              <select name="Norbert color" id="color">
-                <option data-color="white">blanc</option>
-                <option data-color="tan">bronze</option>
-                <option data-color="chocolate">chocolat</option>
-                <option data-color="black">noir</option>
-              </select>
+        <form action="">
+          <div class="card mt-4">
+            <img class="card-img-top img-fluid" style="width: 60%" src="images/teddy1.jpg" alt="">
+            <div class="card-body">
+              <h3 class="card-title">Norbert</h3>
+              <div class="col-lg-4">
+                <label for="model"> couleur du modèle </label>
+                <select name="Norbert color" id="color">
+                  <option data-color="white">blanc</option>
+                  <option data-color="tan">bronze</option>
+                  <option data-color="chocolate">chocolat</option>
+                  <option data-color="black">noir</option>
+                </select>
+              </div>
+              <h4>Prix : 2900</h4>
+              <p class="card-text">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna
+                aliqua.</p>
+              <div class="col-6">
+                <label for="q">Quantité: </label>
+                <select id="qt" name="q">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select></div>
+              <button type="submit" class="btn btn-primary" id="commandNorbert" data-id="5be9c8541c9d440000665243"
+                data-name="Norbert" data-price="2900" data-url="http://localhost:3000/images/teddy_1.jpg"
+                data-description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.">
+                Ajouter au panier</button>
             </div>
-            <h4>Prix : 2900</h4>
-            <p class="card-text">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna
-              aliqua.</p>
-            <div class="col-6">
-              <label for="q">Quantité: </label>
-              <select id="qt" name="q">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-              </select></div>
-            <button type="button" class="btn btn-primary" id="#commandNorbert" data-id="5be9c8541c9d440000665243"
-              data-name="Norbert" data-price="2900" data-url="http://localhost:3000/images/teddy_1.jpg"
-              data-description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.">
-              Ajouter au panier</button>
           </div>
-        </div>
+        </form>
       </div>
+
 
       <!-- /.col-lg-9 -->
       <div class="col-lg-3">
@@ -130,7 +132,7 @@
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="js/test.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
 
 </body>
 

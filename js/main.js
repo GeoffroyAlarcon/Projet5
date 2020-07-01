@@ -11,21 +11,11 @@ class teddy {
 const Norbert = new teddy("5be9c8541c9d440000665243", "Norbert", 2900, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "http://localhost:3000/images/teddy_1.jpg", ["white", "tan", "chocolate", "black"])
 const Arnold = new teddy("5beaa8bf1c9d440000a57d94", "Arnold", 3900, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "http://localhost:3000/images/teddy_2.jpg", ["Pale brown", "Dark brown", "White"]);
 const lennyAndCarl = new teddy("5beaaa8f1c9d440000a57d95", "Lenny and Carl", 5900, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "http://localhost:3000/images/teddy_3.jpg", ["Brown"]);
-const gustav = new tedd("5beaabe91c9d440000a57d96", "Gustav", 4500, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "http://localhost:3000/images/teddy_4.jpg", ["Brown", "Blue", "Pink"]);
+const gustav = new teddy("5beaabe91c9d440000a57d96", "Gustav", 4500, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "http://localhost:3000/images/teddy_4.jpg", ["Brown", "Blue", "Pink"]);
 const Garfunkel = new teddy("5beaacd41c9d440000a57d97", "Garfunkel", 5500, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "http://localhost:3000/images/teddy_5.jpg", ["Beige", "Tan", "Chocolate"]);
-returnAPromiseWithNumber()
-    .then(function (data) { // Data is 2
-        return data + 1;
-    })
-    .then(function (data) { // Data is 3
-        throw new Error('error');
-    })
-    .then(function (data) {
-        // Not executed  
-    })
-    .catch(function (err) {
-        return 5;
-    })
-    .then(function (data) { // Data is 5
-        // Do something
-    });
+
+
+let commandNorbert = document.getElementById("commandNorbert");
+commandNorbert.addEventListener("submit", function(){
+event.preventDefault();
+});

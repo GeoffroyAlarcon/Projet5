@@ -1,5 +1,9 @@
-function userName(value) {
+let myStorage = localStorage;
 
-        return /w[a-z]{7,}$/.test(value);
-    }
-len
+
+
+let addNorbert = myStorage.getItem("commandNorbert");
+let addArnold = myStorage.getItem("commandArnold");
+let addLennyAndCarl = myStorage.getItem("commandLennyAndCarl");
+let Gustav = myStorage.getItem("commandGustav");
+let garfunkel = myStorage.getItem("commandGarfunkel");
