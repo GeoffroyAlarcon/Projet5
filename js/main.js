@@ -27,8 +27,8 @@ function promiseGet(e) {
                         const descriptionTeddy = document.createElement("p");
                         elt.appendChild(divRow).appendChild(divImage).appendChild(myImg);
                         elt.appendChild(divRow).appendChild(newDiv).appendChild(nameTeddy).innerHTML = response[i]["name"];
-                        elt.appendChild(divRow).appendChild(newDiv).appendChild(priceTeddy).innerHTML = "prix : " + response[i]["price"] + "€";
-                        elt.appendChild(divRow).appendChild(newDiv).appendChild(descriptionTeddy).innerHTML = "description :" + response[i]["description"];
+                        elt.appendChild(divRow).appendChild(newDiv).appendChild(priceTeddy).innerHTML = "Prix : " + response[i]["price"]/100 + "€";
+                        elt.appendChild(divRow).appendChild(newDiv).appendChild(descriptionTeddy).innerHTML = "Description : " + response[i]["description"];
                     }
                 } else {
                     reject(XMLHttpRequest);
