@@ -17,7 +17,7 @@ function promiseGet(e) {
                         });
                         myImg.src = response[i]["imageUrl"];    
                         const divRow= document.createElement("div");
-                        divRow.classList.add("row","listTeddy","my-lg-2","text-white","bg-primary");
+                        divRow.classList.add("row","listTeddy","my-lg-4","text-white","bg-primary");
                         const divImage = document.createElement("div");
                         divImage.classList.add("col-lg-3",)
                         const newDiv = document.createElement("div");
