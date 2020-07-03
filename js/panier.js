@@ -1,7 +1,5 @@
 let myStorage = localStorage;
 
-
-
 let addNorbert = myStorage.getItem("commandNorbert");
 let addArnold = myStorage.getItem("commandArnold");
 let addLennyAndCarl = myStorage.getItem("commandLennyAndCarl");
