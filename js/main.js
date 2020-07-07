@@ -1,3 +1,6 @@
+// récupérations de tous les éléments pour constituer une liste des différentes peluches dans l'index.html
+
+// promesse pour récupérer les éléments dynamiquement
 function promiseGet(e) {
 
     return new Promise((resolve, reject) => {
@@ -11,7 +14,6 @@ function promiseGet(e) {
                     var response = JSON.parse(this.responseText);
                     for (let i = 0; i < response.length; i++) {
                         let elt = document.getElementById("teddy");
-                        let imageTeddy = new Image();
                         let myImg = new Image();
                         myImg.addEventListener('load', function() {
                         });
@@ -25,11 +27,16 @@ function promiseGet(e) {
                         const nameTeddy = document.createElement("h2");
                         const priceTeddy = document.createElement("p");
                         const descriptionTeddy = document.createElement("p");
+                        const lienProduct = document.createElement("a");
+                         let idLien= response[i]["_id"];
+                        
+                        lienProduct.href="product.html?id="+idLien
+                    lienProduct.classList.add("stretched-link","text-white");
                         elt.appendChild(divRow).appendChild(divImage).appendChild(myImg);
-                        elt.appendChild(divRow).appendChild(newDiv).appendChild(nameTeddy).innerHTML = response[i]["name"];
+                        elt.appendChild(divRow).appendChild(newDiv).appendChild(lienProduct).appendChild(nameTeddy).innerHTML = response[i]["name"];
                         elt.appendChild(divRow).appendChild(newDiv).appendChild(priceTeddy).innerHTML = "Prix : " + response[i]["price"]/100 + "€";
                         elt.appendChild(divRow).appendChild(newDiv).appendChild(descriptionTeddy).innerHTML = "Description : " + response[i]["description"];
-                    }
+                           }
                 } else {
                     reject(XMLHttpRequest);
                 }
