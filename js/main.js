@@ -21,7 +21,7 @@ function promiseGet(e) {
                         const divRow= document.createElement("div");
                         divRow.classList.add("row","listTeddy","my-lg-4","text-white","bg-primary");
                         const divImage = document.createElement("div");
-                        divImage.classList.add("col-lg-3",)
+                        divImage.classList.add("col-lg-3","bg-white")
                         const newDiv = document.createElement("div");
                         newDiv.classList.add("col-lg-6", "my-5", "offset-1");
                         const nameTeddy = document.createElement("h2");
@@ -45,3 +45,4 @@ function promiseGet(e) {
     })
 };
 const promise = promiseGet();
+
