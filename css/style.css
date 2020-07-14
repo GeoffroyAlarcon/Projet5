@@ -9923,7 +9923,11 @@ img {
 }
 
 #panier {
-  margin: 20% 0;
+  margin: 5% 0;
+}
+
+.listTeddy_product {
+  margin: 1rem !important;
 }
 
 /*# sourceMappingURL=style.css.map */
