@@ -1,8 +1,9 @@
 // Widow.location  pour récupérer l'ID des oursons 
-
 let idUrl = window.location.search;
 let idTeddy = idUrl.substr(4);
-monStockage = localStorage;
+let newArticle = []
+
+console.log(newArticle)
 //définions des classes et des différents éléments pour construire la page produit dynamiquement
 
 
@@ -20,10 +21,12 @@ let teddyPrice = document.createElement("h4");
 let teddyDescription = document.createElement("p");
 let divColor = document.createElement("div");
 divColor.classList.add("col-lg-4");
-let addTeddy = document.createElement("button");
+let addTeddy = document.createElement("input");
 let myImg = new Image();
 myImg.addEventListener('load', function () { })
 addTeddy.classList.add("btn", "btn-primary");
+let addCart = document.createElement("a");
+
 // fin des définions de classes et d'éléments
 
 
@@ -39,6 +42,7 @@ function promiseGet() {
                 if (this.status === 200) {
                     resolve(JSON.parse(this.responseText));
                     let response = JSON.parse(this.responseText);
+
                 }
                 // fin de la liste
                 else {
@@ -63,22 +67,28 @@ promiseGet()
 // choix de la couleur du modèle
 promiseGet()
     .then(function (response) {
-        for (d = 0; d < response["colors"].length; d++) {
-            let x = newTeddy.appendChild(labelColor).appendChild(choiceColor)
-            let option = document.createElement("option");
-            option.text = response["colors"][d];
+        for (d = -1; d < response["colors"].length; d++) {
+            if (d < 0) {
+                let x = newTeddy.appendChild(labelColor).appendChild(choiceColor)
+                let option = document.createElement("option");
+                option.text = "choisir";
+                x.add(option);
+            }
+            else {
+                let x = newTeddy.appendChild(labelColor).appendChild(choiceColor)
+                let option = document.createElement("option");
+                option.text = response["colors"][d];
+                option.setAttribute("value", option.text);
+                x.add(option);
 
-            option.setAttribute("value", option.text);
-            x.add(option);
+                choiceColor.addEventListener("click", function (event) {
 
-            choiceColor.addEventListener("click", function (event) {
+                    let colorStorage = x.value;
+                    event.preventDefault();
+                    sessionStorage.setItem("color", colorStorage);
 
-                let colorStorage = x.value;
-                event.preventDefault();
-                monStockage.setItem("color", colorStorage);
-
-            });
-
+                });
+            }
 
 
         }
@@ -93,47 +103,48 @@ promiseGet()
         labelAmountTeddy.innerHTML = "Quantité : ";
         let amount = document.createElement("select");
         var xAmount = newTeddy.appendChild(labelAmountTeddy).appendChild(amount);
+        var optionAmount = document.createElement("option");
         for (d = 0; d <= 5; d++) {
             var optionAmount = document.createElement("option");
             optionAmount.text = d
             xAmount.add(optionAmount);
+            if (d >= 1) {
+                amount.addEventListener("click", function (event) {
+                    let amountStorage = xAmount.value
+                    event.preventDefault();
+                 sessionStorage.setItem("amount", amountStorage);
 
-            amount.addEventListener("click", function (event) {
-                let amountStorage = xAmount.value
-                event.preventDefault();
-                monStockage.setItem("amount", amountStorage);
-            });
+                });
+            }
         }
-
-
-
-
-
     })
 
 // fin des choix
 // ajout d'un bouton pour ajouter la commande au panier.
 promiseGet()
     .then(function (response) {
-
+        addTeddy.type = "submit";
+    
         newTeddy.appendChild(divColor).appendChild(addTeddy).innerHTML = "Ajouter au panier";
+        // fonction session storage pour envoyer les articles dans le panier 
+        let test = (JSON.stringify({
+            id: response["_id"],
+            name: response["name"],
+            price: response["price"] / 100 + " euros",
+            amount: sessionStorage.getItem("amount"),
+            color: sessionStorage.getItem("color"),
+            imageUrl: response["imageUrl"]
+        }));
 
         addTeddy.addEventListener("click", function (event) {
-            let teddyName = "Nom du modèle : " + response["name"];
-            let teddyD = monStockage.getItem("amount");
-            let teddyPrice = teddyD * response["price"] / 100;
-            let colorTeddy = monStockage.getItem('color');
-            let imageUrl = response["imageUrl"];
-            let choiceTeddy = "Couleur du modèle: " + colorTeddy;
-            monStockage.setItem("price", teddyPrice);
-           monStockage.setItem("choice", choiceTeddy);
-            monStockage.setItem("articleName", teddyName);
-            monStockage.setItem("imageURL", imageUrl);
-            event.preventDefault()
+            event.preventDefault();
+            sessionStorage.setItem("newArticle", test);
+        window.location = "cart.html"
         })
-        // fin ajout de couleur
-
     })
+    // fin d'envoi des éléments au local storage 
+
+
     .catch(function (error) {
     });
 
@@ -169,7 +180,8 @@ promiseListTeddy()
             nameTeddy.classList.add("bg-primary", "text-white", "listTeddy_product");
             let elt = document.getElementById("listTeddy");
             elt.appendChild(Lien).appendChild(nameTeddy).innerHTML = response[i]["name"];
-
+            elt.addEventListener("click", function (event) {
+            })
         }
     })
     .catch(function (error) {
