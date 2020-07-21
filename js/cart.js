@@ -1,3 +1,5 @@
+
+
 let p = document.createElement("p");
 
 
@@ -5,7 +7,9 @@ if (sessionStorage.getItem("newArticle")) {
     let session = sessionStorage.getItem("newArticle");
     localStorage.setItem("Ori" + localStorage.length++, session);
 
-    sessionStorage.removeItem("newArticle")
+    sessionStorage.removeItem("newArticle");
+    sessionStorage.removeItem("color");
+    sessionStorage.removeItem("amount");
 }
 // initialisation JSON.PARSE + localisation ID Panier
 
@@ -37,18 +41,21 @@ if (localStorage) {
         elt.appendChild(divNewArticle).appendChild(divColor).innerHTML = "Couleur du modèle : " + newArticle["color"];
         elt.appendChild(divNewArticle).appendChild(divAmount).innerHTML = "Quantité : " + newArticle["amount"];
         elt.appendChild(divNewArticle).appendChild(divPrice).innerHTML = "Prix : " + newArticle["price"] + " euros";
-
+        sessionStorage.setItem("test", newArticle["price"]);     
     }
     // Création de l'élément prix total // 
     let elt = document.getElementById("cart");
     let divTotalPrice = document.createElement("div");
     divTotalPrice.classList.add("text-center");
-    for (var i = 0; i < localStorage.length; i++) {
-    elt.appendChild(divTotalPrice).innerHTML = "prix total :";
-    let a = JSON.parse(localStorage.getItem(localStorage.key(i)));
-  let b =[];
-  b.push(a["price"]);
-  
-  console.log(b);
-}
-}
+
+
+    if (sessionStorage.length <= 1) {
+ sessionStorage.setItem("totalPrice",sessionStorage.getItem("test"));
+ sessionStorage.removeItem("test");
+    }
+    else {
+        sessionStorage.setItem("totalPrice",JSON.parse(sessionStorage.getItem("totalPrice")) +  JSON.parse(sessionStorage.getItem("test")));
+        sessionStorage.removeItem("test");
+    }
+    elt.appendChild(divTotalPrice).innerHTML = "prix total de la commande = " +sessionStorage.getItem("totalPrice");
+};
