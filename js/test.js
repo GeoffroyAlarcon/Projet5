@@ -80,17 +80,17 @@ promiseGet()
                 option.text = response["colors"][d];
                 option.setAttribute("value", option.text);
                 x.add(option);
-
                 choiceColor.addEventListener("click", function (event) {
 
                     let colorStorage = x.value;
                     event.preventDefault();
                     sessionStorage.setItem("color", colorStorage);
+    
 
-                });
+            })
+
+
             }
-
-
         }
 
     })
@@ -112,7 +112,7 @@ promiseGet()
                 amount.addEventListener("click", function (event) {
                     let amountStorage = xAmount.value
                     event.preventDefault();
-                 sessionStorage.setItem("amount", amountStorage);
+                    sessionStorage.setItem("amount", amountStorage);
 
                 });
             }
@@ -124,24 +124,27 @@ promiseGet()
 promiseGet()
     .then(function (response) {
         addTeddy.type = "submit";
-    
         newTeddy.appendChild(divColor).appendChild(addTeddy).innerHTML = "Ajouter au panier";
         // fonction session storage pour envoyer les articles dans le panier 
-        let test = (JSON.stringify({
-            id: response["_id"],
-            name: response["name"],
-            price: response["price"] / 100 + " euros",
-            amount: sessionStorage.getItem("amount"),
-            color: sessionStorage.getItem("color"),
-            imageUrl: response["imageUrl"]
-        }));
 
-        addTeddy.addEventListener("click", function (event) {
-            event.preventDefault();
-            sessionStorage.setItem("newArticle", test);
-        window.location = "cart.html"
-        })
+            addTeddy.addEventListener("click", function (event) {
+                event.preventDefault();
+                let test = (JSON.stringify({
+                    id: response["_id"],
+                    name: response["name"],
+                    price: response["price"] / 100,
+                    amount: sessionStorage.getItem("amount"),
+                    color: sessionStorage.getItem("color"),
+                    imageUrl: response["imageUrl"]
+                }));
+
+                sessionStorage.setItem("newArticle", test);
+                window.location = "cart.html";
+
+            })
+       
     })
+
     // fin d'envoi des éléments au local storage 
 
 
