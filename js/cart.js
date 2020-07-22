@@ -7,7 +7,7 @@ if (sessionStorage.getItem("newArticle")) {
     let session = sessionStorage.getItem("newArticle");
     localStorage.setItem("Ori" + localStorage.length++, session);
     let newArticle = JSON.parse(sessionStorage.getItem("newArticle"));
-    sessionStorage.setItem("test", newArticle["price"]);
+    sessionStorage.setItem("test", newArticle["price"]*newArticle["amount"]);
     sessionStorage.removeItem("newArticle");
     sessionStorage.removeItem("color");
     sessionStorage.removeItem("amount");
@@ -42,7 +42,7 @@ if (localStorage.length >= 1) {
         elt.appendChild(divNewArticle).appendChild(divName).appendChild(pName).innerHTML = "Nom de l'article : " + newArticle["name"];
         elt.appendChild(divNewArticle).appendChild(divColor).innerHTML = "Couleur du modèle : " + newArticle["color"];
         elt.appendChild(divNewArticle).appendChild(divAmount).innerHTML = "Quantité : " + newArticle["amount"];
-        elt.appendChild(divNewArticle).appendChild(divPrice).innerHTML = "Prix : " + newArticle["price"] + " euros";
+        elt.appendChild(divNewArticle).appendChild(divPrice).innerHTML = "Prix à l'unité : " + newArticle["price"] + " euros";
       
     }
     // Création de l'élément prix total // 
@@ -58,7 +58,7 @@ if (localStorage.length >= 1) {
         sessionStorage.setItem("totalPrice", JSON.parse(sessionStorage.getItem("totalPrice")) + JSON.parse(sessionStorage.getItem("test")));
         sessionStorage.removeItem("test");
     }
-    elt.appendChild(divTotalPrice).innerHTML = "Prix total de la commande = " + sessionStorage.getItem("totalPrice");
+    elt.appendChild(divTotalPrice).innerHTML = "Prix total de la commande = " + sessionStorage.getItem("totalPrice") + " euros";
     // fin de la création de l'éménet "Prix total" //
 };
 
