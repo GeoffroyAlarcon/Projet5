@@ -140,7 +140,6 @@ promiseGet()
 
                 sessionStorage.setItem("newArticle", test);
                 window.location = "cart.html";
-
             })
        
     })
