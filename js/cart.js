@@ -9,7 +9,7 @@ if (localStorage.getItem("totalPrice")) {
 if (sessionStorage.getItem("newArticle")) {
     let session = sessionStorage.getItem("newArticle");
     localStorage.setItem("Ori" + localStorage.length++, session);
-    sessionStorage.removeItem("newArticle");
+
     sessionStorage.removeItem("color");
     sessionStorage.removeItem("amount");
 
@@ -54,18 +54,26 @@ if (localStorage.length <= 1) {
     let newArticle = JSON.parse(localStorage.getItem(localStorage.key(0)))
     localStorage.setItem("totalPrice", + newArticle["price"] * newArticle["amount"]);
     sessionStorage.removeItem("totalPrice");
+    sessionStorage.removeItem("newArticle");
     elt.appendChild(divTotalPrice).innerHTML = "Prix total de la commande = " + localStorage.getItem("totalPrice") + " euros";
 
 }
 
-else if (localStorage.length >= 2) {
+else if (localStorage.length >= 2 && sessionStorage.getItem("newArticle")) {
     let i = localStorage.length - 1;
     let test = JSON.parse(sessionStorage.getItem("totalPrice"));
-    let newArticle = JSON.parse(localStorage.getItem(localStorage.key(i)))
-    let calcul=  newArticle["price"] * newArticle["amount"]
-    localStorage.setItem("totalPrice", test + calcul );
+    let newArticle = JSON.parse(sessionStorage.getItem("newArticle"))
+    let calcul = newArticle["price"] * newArticle["amount"]
+    localStorage.setItem("totalPrice", test + calcul);
     sessionStorage.removeItem("totalPrice");
+    sessionStorage.removeItem("newArticle");
     elt.appendChild(divTotalPrice).innerHTML = "Prix total de la commande = " + localStorage.getItem("totalPrice") + " euros";
+
+}
+else if (localStorage.length >= 2) {
+    localStorage.setItem("totalPrice", sessionStorage.getItem("totalPrice"));
+    sessionStorage.removeItem("totalPrice");
+    sessionStorage.removeItem("totalPrice"); elt.appendChild(divTotalPrice).innerHTML = "Prix total de la commande = " + localStorage.getItem("totalPrice") + " euros";
 
 }
 // fin de la création de l'éménet "Prix total" //
@@ -80,22 +88,32 @@ else if (localStorage.length >= 2) {
 if (localStorage.length >= 1) {
     let form = document.getElementById("form");
     form.classList.add("text-center");
+    let labelFirstName = document.createElement("label");
     let divFirstName = document.createElement("div");
     let firstName = document.createElement("input");
     firstName.required = true;
-    firstName.value = "e2020";
+    firstName.name = "Nom de famille";
+    firstName.id = "firstName";
+    let helpForm = document.createElement("div");
+    helpForm.classList.add("text-center");
+    let divLastName = document.createElement("div");
+    let lastName = document.createElement("input");
+    lastName.required = true;
+    lastName.name = "Prénom";
+    lastName.id = "lastName";
+    let labelLastName = document.createElement("label");
 
-    let divName = document.createElement("div");
-    let name = document.createElement("input");
-    name.required = true;
-    name.value = "";
-    let labelFirstName = document.createElement("label");
-    let labelName = document.createElement("label");
-    let labelMail = document.createElement("label");
-    let divMail = document.createElement("div")
-    let mail = document.createElement("input")
-    mail.type = "email";
-    mail.required = true;
+    let labelEmail = document.createElement("label");
+    let divEmail = document.createElement("div")
+    let email = document.createElement("input")
+    email.name = "Adresse mail";
+    email.id = "email"
+    let labelConfirmMail = document.createElement("label");
+    let divConfirmMail = document.createElement("div")
+    let confirmMail = document.createElement("input")
+    confirmMail.type = "email";
+    confirmMail.required = true;
+    confirmMail.name = "confirmation d'adresse mail";
     let divBirthday = document.createElement("div");
     let labeLBirthday = document.createElement("label");
     let dateOfBirthday = document.createElement("input");
@@ -103,65 +121,181 @@ if (localStorage.length >= 1) {
     dateOfBirthday.min = "1900-01-01";
     dateOfBirthday.max = "2003-01-01";
     dateOfBirthday.required = true;
-    let divAdress = document.createElement("div");
-    let labelAdress = document.createElement("label");
-    let adress = document.createElement("input");
-    adress.required = true;
+    dateOfBirthday.name = "date de naissance";
+    let divAddress = document.createElement("div");
+    let labelAddress = document.createElement("label");
+    let address = document.createElement("input");
+    address.id = "address";
+    address.required = true;
+    address.name = "Adresse postale";
     let divZipCode = document.createElement("div");
     let labelZipCode = document.createElement("label");
     let zipCode = document.createElement("input");
     zipCode.required = true;
-    zipCode.type = "number";
+    zipCode.name = "code postal";
     let divCity = document.createElement("div");
     let labelCity = document.createElement("label");
     let city = document.createElement("input");
     city.required = true;
+    city.name = "ville de résidence";
+    city.id = "city";
     let divTel = document.createElement("div");
     let labelTel = document.createElement("label");
     let tel = document.createElement("input");
+
     tel.type = "tel";
+    tel.name = "Téléphone";
     tel.required = true;
     let submit = document.createElement("input");
     submit.type = "submit";
-    submit.value = "Finalisez votre commande"
+    submit.value = "Finalisez votre commande";
     submit.classList.add("bg-primary", "text-white")
     //validation des REGEX après envoi
     function isValid(value) {
-        return /[A-Z-a-z]{3,}$/.test(value);
+        return /^[A-Z-a-z]{3,40}$/.test(value);
     }
     function validTel(value) {
-        return /[0-9]{10}/.test(value);
+        return /^\d{10}$/.test(value);
     }
-    function validAdress(value){
-        return /[a-z-A-Z-0-9]/.test(value)
+    function validAddress(value) {
+        return /^[A-Z-a-z-0-9\s]{10,80}$/.test(value)
+    }
+    function validcity(value) {
+        return /^[A-Z-a-z-\s]{3,40}$/.test(value)
     }
 
-    form.addEventListener("submit", function (event) {
-        if (isValid(firstName.value) && isValid(name.value) && validTel(tel.value)) {
-            alert(true)
-        }
+    function validZipCode(value) {
+        return /^[0-9]{5}$/.test(value)
+    }
 
-        else {
-            alert(false)
-        }
-        event.preventDefault();
-        event.stopPropagation();
-    })
-    // fin de la créations des balises pour le formulaire
-    // ajout dinamiquement du formulaire //
-    form.appendChild(divFirstName).appendChild(labelFirstName).innerHTML = " votre Nom : ";
+    // Affichage d'un message contextuel pour la saisie du numéro de téléphone
+    tel.addEventListener("focus", function () {
+
+        helpForm.textContent = "Entrez votre numéro de téléphone à 10 chiffres";
+    });
+    // Suppression du message contextuel pour la saisie du numéro de téléphone
+    tel.addEventListener("blur", function () {
+        helpForm.textContent = "";
+    });
+
+    // Affichage d'un message contextuel pour la saisie du nom de famille
+    firstName.addEventListener("focus", function () {
+        helpForm.textContent = "Ce champ prend en compte seulement les caractères Alpha,  les chiffre et les symboles ne sont pas autorisés";
+    });
+    // Suppression du message contextuel pour la saisie du nom de famille
+    firstName.addEventListener("blur", function () {
+        helpForm.textContent = "";
+    });
+    // Affichage d'un message contextuel pour la saisie du prénom
+    lastName.addEventListener("focus", function () {
+        helpForm.textContent = "Ce champ prend seulement les caractères Alpha,  les chiffre et les symboles ne sont pas autorisés";
+    });
+    // Suppression du message contextuel pour la saisie du nom du Prénom
+    lastName.addEventListener("blur", function () {
+        helpForm.textContent = "";
+    });
+
+
+    // Affichage d'un message contextuel pour la saisie du numéro de téléphone
+    zipCode.addEventListener("focus", function () {
+        helpForm.textContent = "Entrez votre code postal à 5 chiffres";
+    });
+    // Suppression du message contextuel pour la saisie du numéro de téléphone
+    zipCode.addEventListener("blur", function () {
+        helpForm.textContent = "";
+    });
+
+
+
+    form.appendChild(divFirstName).appendChild(labelFirstName).innerHTML = " Votre Prénom : ";
     form.appendChild(divFirstName).appendChild(labelFirstName).appendChild(firstName);
-    form.appendChild(divName).appendChild(labelName).innerHTML = " votre Prénom : ";
-    form.appendChild(divName).appendChild(labelName).appendChild(name);
+    form.appendChild(divLastName).appendChild(labelLastName).innerHTML = " Votre nom de famille : ";
+    form.appendChild(divLastName).appendChild(labelLastName).appendChild(lastName);
     form.appendChild(divTel).appendChild(labelTel).innerHTML = "Votre numéro de téléphone :";
     form.appendChild(divTel).appendChild(labelTel).appendChild(tel);
-    form.appendChild(divMail).appendChild(labelMail).innerHTML = " Votre adresse mail : ";
-    form.appendChild(divMail).appendChild(labelMail).appendChild(mail);
+    form.appendChild(divEmail).appendChild(labelEmail).innerHTML = " Votre adresse mail : ";
+    form.appendChild(divEmail).appendChild(labelEmail).appendChild(email);
+    form.appendChild(divConfirmMail).appendChild(labelConfirmMail).innerHTML = " Confirmez votre adresse mail : ";
+    form.appendChild(divConfirmMail).appendChild(labelConfirmMail).appendChild(confirmMail);
     form.appendChild(divBirthday).appendChild(labeLBirthday).innerHTML = "Votre date de naissance : "
     form.appendChild(divBirthday).appendChild(labeLBirthday).appendChild(dateOfBirthday);
-    form.appendChild(divAdress).appendChild(labelAdress).innerHTML = " Votre adresse postale : ";
-    form.appendChild(divAdress).appendChild(labelAdress).appendChild(adress);
-    
+    form.appendChild(divAddress).appendChild(labelAddress).innerHTML = " Votre adresse : ";
+    form.appendChild(divAddress).appendChild(labelAddress).appendChild(address);
+    form.appendChild(divZipCode).appendChild(labelZipCode).innerHTML = "Votre code postale : ";
+    form.appendChild(divZipCode).appendChild(labelZipCode).appendChild(zipCode);
+    form.appendChild(divCity).appendChild(labelCity).innerHTML = "Votre ville de résidence : ";
+    form.appendChild(divCity).appendChild(labelCity).appendChild(city);
+
+    form.appendChild(helpForm);
     form.appendChild(submit);
 
+    form.addEventListener("submit", function (event) {
+        if (validTel(tel.value)) {
+        }
+        else {
+            alert("Votre numéro de téléphone est invalide. Vous devez composez un numéro à 10 chiffre exactement")
+            event.preventDefault();
+        }
+        if (isValid(lastName.value) && isValid(firstName.value)) {
+
+        }
+        else {
+            alert("Seuls les caractères alpha sont pris en charge, aucun chiffre et/ou symbole n'est autorisé")
+            event.preventDefault()
+        }
+        if (validZipCode(zipCode.value)) {
+
+        }
+        else {
+            alert("votre code Postal est composé seulement de 5 chiffres")
+            event.preventDefault()
+        }
+
+        if (email.value === confirmMail.value) {
+
+        }
+        else {
+            alert("L'adresse mail et la confirmation de votre adresse mail ne correspondent pas.")
+          
+        }
+
+        if (validTel(tel.value) && isValid(lastName.value) && isValid(firstName.value) && email.value === confirmMail.value && validZipCode(zipCode.value) && validAddress(address.value)) {
+            alert(" Votre commande a bien été prise en compte")
+            event.preventDefault();
+            let request = new XMLHttpRequest();
+            request.open("POST", "http://localhost:3000/api/teddies/order");
+            request.setRequestHeader("Content-Type", "application/json");
+            let contact = {
+                firstName: firstName.value,
+                lastName: lastName.value,
+                address: address.value,
+                city: city.value,
+                email: email.value,
+            }
+
+            let article = JSON.parse(localStorage.getItem(localStorage.key(0)))
+            let products_id = article["id"]
+            let products = [products_id]
+            let objet = {
+                contact,
+                products,
+            }
+            let order = JSON.stringify(objet)
+
+            request.onreadystatechange = function () {
+                if (this.readyState == XMLHttpRequest.DONE) {
+                    window.location = "thanks.html";
+                    console.log(this.responseText);
+                localStorage.setItem("order", this.responseText)
+
+                }
+
+
+            }
+            request.send(order);
+        }
+        else {
+            event.preventDefault()
+        }
+    })
 }
