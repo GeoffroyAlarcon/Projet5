@@ -60,7 +60,6 @@ if (localStorage.length <= 1) {
 }
 
 else if (localStorage.length >= 2 && sessionStorage.getItem("newArticle")) {
-    let i = localStorage.length - 1;
     let test = JSON.parse(sessionStorage.getItem("totalPrice"));
     let newArticle = JSON.parse(sessionStorage.getItem("newArticle"))
     let calcul = newArticle["price"] * newArticle["amount"]
@@ -256,9 +255,8 @@ if (localStorage.length >= 1) {
         }
         else {
             alert("L'adresse mail et la confirmation de votre adresse mail ne correspondent pas.")
-          
-        }
 
+        }
         if (validTel(tel.value) && isValid(lastName.value) && isValid(firstName.value) && email.value === confirmMail.value && validZipCode(zipCode.value) && validAddress(address.value)) {
             alert(" Votre commande a bien été prise en compte")
             event.preventDefault();
@@ -272,10 +270,18 @@ if (localStorage.length >= 1) {
                 city: city.value,
                 email: email.value,
             }
+        
+            //boucle pour mettre tous les id des oursons commandés dans le tableau Products
+                let products = [];
+            for (i = 0; i < localStorage.length; i++) {
+                let article = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                let products_id = article["id"];
 
-            let article = JSON.parse(localStorage.getItem(localStorage.key(0)))
-            let products_id = article["id"]
-            let products = [products_id]
+                products.push((products_id));
+            }
+            console.log(products);
+
+
             let objet = {
                 contact,
                 products,
@@ -284,10 +290,9 @@ if (localStorage.length >= 1) {
 
             request.onreadystatechange = function () {
                 if (this.readyState == XMLHttpRequest.DONE) {
-                    window.location = "thanks.html";
-                    console.log(this.responseText);
-                localStorage.setItem("order", this.responseText)
-
+                    console.log(this.responseText)
+                    localStorage.setItem("order", this.responseText)
+                    window.location=("thanks.html");
                 }
 
 
