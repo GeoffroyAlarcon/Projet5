@@ -46,6 +46,7 @@ if (localStorage.length >= 1) {
 
     }
 }
+// création de l'élément prix total
 let elt = document.getElementById("cart");
 let divTotalPrice = document.createElement("div");
 divTotalPrice.classList.add("text-center");
