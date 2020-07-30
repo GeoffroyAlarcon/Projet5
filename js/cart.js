@@ -1,6 +1,4 @@
-
 let p = document.createElement("p");
-
 
 if (sessionStorage.getItem("newArticle")) {
     let session = sessionStorage.getItem("newArticle");
@@ -8,7 +6,7 @@ if (sessionStorage.getItem("newArticle")) {
     sessionStorage.removeItem("newArticle")
 }
 
-
+// afichage dynamiquement des oursons commandés
 if (localStorage.length >= 1) {
     for (i = 0; i < localStorage.length; i++) {
         let newArticle = JSON.parse(localStorage.getItem("Ori" + i));
@@ -23,23 +21,25 @@ if (localStorage.length >= 1) {
         let divIMG = document.createElement("div");
         divIMG.classList.add("col-lg-3");
         let divName = document.createElement("div");
-        divName.classList.add("col-lg-3", "text-center", "my-5");
+        divName.classList.add("col-lg-2", "text-center", "my-5");
         let divColor = document.createElement("div");
         divColor.classList.add("col-lg-2", "text-center", "my-5");
         let divAmount = document.createElement("div");
         divAmount.classList.add("col-lg-2", "text-center", "my-5");
         let divPrice = document.createElement("div");
         divPrice.classList.add("col-lg-2", "text-center", "my-5");
+        let divRemoveArticle = document.createElement("div");
+        divRemoveArticle.classList.add("my-5");
+
         // ajout dinamiquement des éléments au panier.
         elt.appendChild(divNewArticle).appendChild(divIMG).appendChild(imgTeddy);
         elt.appendChild(divNewArticle).appendChild(divName).appendChild(pName).innerHTML = "Nom de l'article : " + newArticle["name"];
         elt.appendChild(divNewArticle).appendChild(divColor).innerHTML = "Couleur du modèle : " + newArticle["color"];
         elt.appendChild(divNewArticle).appendChild(divAmount).innerHTML = "Quantité : " + newArticle["amount"];
         elt.appendChild(divNewArticle).appendChild(divPrice).innerHTML = "Prix à l'unité : " + newArticle["price"] + " euros";
-
     }
 }
-// création de l'élément prix total
+// création de l'élément prix total et d'un bouton vider panier
 let elt = document.getElementById("cart");
 let divTotalPrice = document.createElement("div");
 divTotalPrice.classList.add("text-center");
@@ -51,9 +51,20 @@ for (i = 0; i < localStorage.length; i++) {
 };
 
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
-
+let divRemoveArticle = document.createElement("div");
+divRemoveArticle.classList.add("row", "text-center");
+let removeArticle = document.createElement("p");
+let removeArticleA = document.createElement("a");
+removeArticleA.classList.add("stretched-link", "text-white")
+removeArticleA.href = "cart.html"
+removeArticleA.classList.add = ""
+removeArticle.classList.add("bg-primary", "col-lg-2", "offset-lg-5","my-5");
+removeArticle.addEventListener("click", function (e) {
+    localStorage.clear()
+})
 console.log(totalPrice.reduce(reducer));
 elt.appendChild(divTotalPrice).innerHTML = "le prix total de votre commande est de " + totalPrice.reduce(reducer) + " euros"
+elt.appendChild(divRemoveArticle).appendChild(removeArticle).appendChild(removeArticleA).innerHTML = "vider votre panier"
 // fin de la création de l'éménet "Prix total" //
 
 
