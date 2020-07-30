@@ -1,17 +1,11 @@
 
 let p = document.createElement("p");
 
-if (localStorage.getItem("totalPrice")) {
-    sessionStorage.setItem("totalPrice", JSON.parse(localStorage.getItem("totalPrice")));
-    localStorage.removeItem("totalPrice")
-}
 
 if (sessionStorage.getItem("newArticle")) {
     let session = sessionStorage.getItem("newArticle");
     localStorage.setItem("Ori" + localStorage.length++, session);
-    sessionStorage.removeItem("color");
-    sessionStorage.removeItem("amount");
-
+    sessionStorage.removeItem("newArticle")
 }
 
 
@@ -49,32 +43,19 @@ if (localStorage.length >= 1) {
 let elt = document.getElementById("cart");
 let divTotalPrice = document.createElement("div");
 divTotalPrice.classList.add("text-center");
+let totalPrice = []
+for (i = 0; i < localStorage.length; i++) {
+    let article = JSON.parse(localStorage.getItem(localStorage.key(i)))
+    let calcul = article["price"] * article["amount"];
+    totalPrice.push(calcul)
+};
 
-if (localStorage.length <= 1) {
-    let newArticle = JSON.parse(localStorage.getItem(localStorage.key(0)))
-    localStorage.setItem("totalPrice", + newArticle["price"] * newArticle["amount"]);
-    sessionStorage.removeItem("totalPrice");
-    sessionStorage.removeItem("newArticle");
-    elt.appendChild(divTotalPrice).innerHTML = "Prix total de la commande = " + localStorage.getItem("totalPrice") + " euros";
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
-}
-
-else if (localStorage.length >= 2 && sessionStorage.getItem("newArticle")) {
-    let test = JSON.parse(sessionStorage.getItem("totalPrice"));
-    let newArticle = JSON.parse(sessionStorage.getItem("newArticle"))
-    let calcul = newArticle["price"] * newArticle["amount"]
-    localStorage.setItem("totalPrice", test + calcul);
-    sessionStorage.removeItem("totalPrice");
-    sessionStorage.removeItem("newArticle");
-    elt.appendChild(divTotalPrice).innerHTML = "Prix total de la commande = " + localStorage.getItem("totalPrice") + " euros";
-
-}
-else if (localStorage.length >= 2) {
-    localStorage.setItem("totalPrice", sessionStorage.getItem("totalPrice"));
-    sessionStorage.removeItem("totalPrice");
-    sessionStorage.removeItem("totalPrice"); elt.appendChild(divTotalPrice).innerHTML = "Prix total de la commande = " + localStorage.getItem("totalPrice") + " euros";
-
-}
+// 1 + 2 + 3 + 4
+console.log(totalPrice.reduce(reducer));
+// expected output: 10
+elt.appendChild(divTotalPrice).innerHTML = "le prix total de votre commande est de " + totalPrice.reduce(reducer) + " euros"
 // fin de la création de l'éménet "Prix total" //
 
 
@@ -260,6 +241,7 @@ if (localStorage.length >= 1) {
         if (validTel(tel.value) && isValid(lastName.value) && isValid(firstName.value) && email.value === confirmMail.value && validZipCode(zipCode.value) && validAddress(address.value)) {
             alert(" Votre commande a bien été prise en compte")
             event.preventDefault();
+
             let request = new XMLHttpRequest();
             request.open("POST", "http://localhost:3000/api/teddies/order");
             request.setRequestHeader("Content-Type", "application/json");
@@ -270,9 +252,9 @@ if (localStorage.length >= 1) {
                 city: city.value,
                 email: email.value,
             }
-        
+
             //boucle pour mettre tous les id des oursons commandés dans le tableau Products
-                let products = [];
+            let products = [];
             for (i = 0; i < localStorage.length; i++) {
                 let article = JSON.parse(localStorage.getItem(localStorage.key(i)));
                 let products_id = article["id"];
@@ -291,8 +273,7 @@ if (localStorage.length >= 1) {
             request.onreadystatechange = function () {
                 if (this.readyState == XMLHttpRequest.DONE) {
                     console.log(this.responseText)
-                    localStorage.setItem("order", this.responseText)
-                    window.location=("thanks.html");
+                    window.location = "thanks.html"
                 }
 
 

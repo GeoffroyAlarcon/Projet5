@@ -3,7 +3,7 @@ let idUrl = window.location.search;
 let idTeddy = idUrl.substr(4);
 let newArticle = []
 sessionStorage.removeItem("color");
-sessionStorage.removeItem("amount")
+sessionStorage.removeItem("amount");
 console.log(newArticle)
 //définions des classes et des différents éléments pour construire la page produit dynamiquement
 
@@ -106,7 +106,6 @@ promiseGet()
         var optionAmount = document.createElement("option");
 
         for (d = 1; d <= 5; d++) {
-
             var optionAmount = document.createElement("option");
             optionAmount.text = d
             xAmount.add(optionAmount);
@@ -140,8 +139,11 @@ promiseGet()
                     color: sessionStorage.getItem("color"),
                     imageUrl: response["imageUrl"]
                 }));
-
+             
+            
                 sessionStorage.setItem("newArticle", test);
+                sessionStorage.removeItem("color");
+                sessionStorage.removeItem("amount");
                 window.location = "cart.html";
             }
             else {
