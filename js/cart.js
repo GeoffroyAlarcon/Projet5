@@ -9,7 +9,6 @@ if (localStorage.getItem("totalPrice")) {
 if (sessionStorage.getItem("newArticle")) {
     let session = sessionStorage.getItem("newArticle");
     localStorage.setItem("Ori" + localStorage.length++, session);
-
     sessionStorage.removeItem("color");
     sessionStorage.removeItem("amount");
 
