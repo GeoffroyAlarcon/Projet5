@@ -2,7 +2,8 @@
 let idUrl = window.location.search;
 let idTeddy = idUrl.substr(4);
 let newArticle = []
-
+sessionStorage.removeItem("color");
+sessionStorage.removeItem("amount")
 console.log(newArticle)
 //définions des classes et des différents éléments pour construire la page produit dynamiquement
 
@@ -80,13 +81,12 @@ promiseGet()
                 option.text = response["colors"][d];
                 option.setAttribute("value", option.text);
                 x.add(option);
+
                 choiceColor.addEventListener("click", function (event) {
 
                     let colorStorage = x.value;
                     event.preventDefault();
                     sessionStorage.setItem("color", colorStorage);
-
-
                 })
 
 
@@ -104,12 +104,15 @@ promiseGet()
         let amount = document.createElement("select");
         var xAmount = newTeddy.appendChild(labelAmountTeddy).appendChild(amount);
         var optionAmount = document.createElement("option");
+
         for (d = 1; d <= 5; d++) {
+
             var optionAmount = document.createElement("option");
             optionAmount.text = d
             xAmount.add(optionAmount);
-
+            sessionStorage.setItem("amount", "1")
             amount.addEventListener("click", function (event) {
+                sessionStorage.removeItem("amount")
                 let amountStorage = xAmount.value
                 event.preventDefault();
                 sessionStorage.setItem("amount", amountStorage);
@@ -126,22 +129,27 @@ promiseGet()
         addTeddy.type = "submit";
         newTeddy.appendChild(divColor).appendChild(addTeddy).innerHTML = "Ajouter au panier";
         // fonction session storage pour envoyer les articles dans le panier 
-
         addTeddy.addEventListener("click", function (event) {
-            event.preventDefault();
-            let test = (JSON.stringify({
-                id: response["_id"],
-                name: response["name"],
-                price: response["price"] / 100,
-                amount: sessionStorage.getItem("amount"),
-                color: sessionStorage.getItem("color"),
-                imageUrl: response["imageUrl"]
-            }));
+            if (sessionStorage.getItem("color")) {
+                event.preventDefault();
+                let test = (JSON.stringify({
+                    id: response["_id"],
+                    name: response["name"],
+                    price: response["price"] / 100,
+                    amount: sessionStorage.getItem("amount"),
+                    color: sessionStorage.getItem("color"),
+                    imageUrl: response["imageUrl"]
+                }));
 
-            sessionStorage.setItem("newArticle", test);
-            window.location = "cart.html";
+                sessionStorage.setItem("newArticle", test);
+                window.location = "cart.html";
+            }
+            else {
+                event.preventDefault();
+                alert(" veuillez choisir une couleur")
+            }
+
         })
-
     })
 
     // fin d'envoi des éléments au local storage 
@@ -183,6 +191,8 @@ promiseListTeddy()
             let elt = document.getElementById("listTeddy");
             elt.appendChild(Lien).appendChild(nameTeddy).innerHTML = response[i]["name"];
             elt.addEventListener("click", function (event) {
+                sessionStorage.removeItem("color");
+                sessionStorage.removeItem("amount");
             })
         }
     })
