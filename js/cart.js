@@ -52,9 +52,6 @@ for (i = 0; i < localStorage.length; i++) {
 
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
-// 1 + 2 + 3 + 4
-console.log(totalPrice.reduce(reducer));
-// expected output: 10
 elt.appendChild(divTotalPrice).innerHTML = "le prix total de votre commande est de " + totalPrice.reduce(reducer) + " euros"
 // fin de la création de l'éménet "Prix total" //
 
@@ -252,7 +249,16 @@ if (localStorage.length >= 1) {
                 city: city.value,
                 email: email.value,
             }
+            // boucle pour envoyer le prix total de la commande dans la page de remerciement
+            let totalPrice = []
+            for (i = 0; i < localStorage.length; i++) {
+                let article = JSON.parse(localStorage.getItem(localStorage.key(i)))
+                let calcul = article["price"] * article["amount"];
+                totalPrice.push(calcul);
+            };
+            const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
+            sessionStorage.setItem("totalPrice", totalPrice.reduce(reducer));
             //boucle pour mettre tous les id des oursons commandés dans le tableau Products
             let products = [];
             for (i = 0; i < localStorage.length; i++) {
