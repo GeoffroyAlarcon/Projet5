@@ -156,6 +156,9 @@ if (localStorage.length >= 1) {
     function validZipCode(value) {
         return /^[0-9]{5}$/.test(value)
     }
+    function validEmail(value){
+
+    }
 
     // Affichage d'un message contextuel pour la saisie du numéro de téléphone
     tel.addEventListener("focus", function () {
