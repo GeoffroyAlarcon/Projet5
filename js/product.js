@@ -83,10 +83,12 @@ promiseGet()
                 x.add(option);
 
                 choiceColor.addEventListener("click", function (event) {
-
-                    let colorStorage = x.value;
-                    event.preventDefault();
-                    sessionStorage.setItem("color", colorStorage);
+                    sessionStorage.removeItem("color")
+                    if (x.value != "choisir") {
+                       
+                        let colorStorage = x.value;                        event.preventDefault();
+                        sessionStorage.setItem("color", colorStorage);
+                    }
                 })
 
 
@@ -139,8 +141,8 @@ promiseGet()
                     color: sessionStorage.getItem("color"),
                     imageUrl: response["imageUrl"]
                 }));
-             
-            
+
+
                 sessionStorage.setItem("newArticle", test);
                 sessionStorage.removeItem("color");
                 sessionStorage.removeItem("amount");

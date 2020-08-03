@@ -97,6 +97,8 @@ if (localStorage.length >= 1) {
     let email = document.createElement("input")
     email.name = "Adresse mail";
     email.id = "email"
+    email.type = "email";
+email.required = true;
     let labelConfirmMail = document.createElement("label");
     let divConfirmMail = document.createElement("div")
     let confirmMail = document.createElement("input")
@@ -157,7 +159,8 @@ if (localStorage.length >= 1) {
         return /^[0-9]{5}$/.test(value)
     }
     function validEmail(value){
-
+        return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
+        
     }
 
     // Affichage d'un message contextuel pour la saisie du numéro de téléphone
@@ -242,6 +245,15 @@ if (localStorage.length >= 1) {
             alert("votre code Postal est composé seulement de 5 chiffres")
             event.preventDefault()
         }
+        if (validEmail(email.value)){
+
+        }
+    
+else{
+event.preventDefault(
+    alert("Votre adresse mail saisie est incorrecte")
+)
+}
 
         if (email.value === confirmMail.value) {
 
@@ -250,7 +262,7 @@ if (localStorage.length >= 1) {
             alert("L'adresse mail et la confirmation de votre adresse mail ne correspondent pas.")
 
         }
-        if (validTel(tel.value) && isValid(lastName.value) && isValid(firstName.value) && email.value === confirmMail.value && validZipCode(zipCode.value) && validAddress(address.value)) {
+        if (validTel(tel.value) && isValid(lastName.value) && isValid(firstName.value) && email.value === confirmMail.value && validZipCode(zipCode.value) && validAddress(address.value)&& validEmail(email.value)) {
             alert(" Votre commande a bien été prise en compte")
             event.preventDefault();
             // boucle pour envoyer le prix total de la commande dans la page de remerciement
