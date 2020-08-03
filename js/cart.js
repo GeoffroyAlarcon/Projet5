@@ -40,17 +40,8 @@ if (localStorage.length >= 1) {
     }
 }
 // création de l'élément prix total et d'un bouton vider panier
-let elt = document.getElementById("cart");
-let divTotalPrice = document.createElement("div");
-divTotalPrice.classList.add("text-center");
-let totalPrice = []
-for (i = 0; i < localStorage.length; i++) {
-    let article = JSON.parse(localStorage.getItem(localStorage.key(i)))
-    let calcul = article["price"] * article["amount"];
-    totalPrice.push(calcul)
-};
 
-const reducer = (accumulator, currentValue) => accumulator + currentValue;
+// ajout d'un bouton pour vider la panier
 let divRemoveArticle = document.createElement("div");
 divRemoveArticle.classList.add("row", "text-center");
 let removeArticle = document.createElement("p");
@@ -62,6 +53,19 @@ removeArticle.classList.add("bg-primary", "col-lg-2", "offset-lg-5","my-5");
 removeArticle.addEventListener("click", function (e) {
     localStorage.clear()
 })
+// fin de l'ajout du panier bouton panier 
+// calcul du prix total de la commande
+let elt = document.getElementById("cart");
+let divTotalPrice = document.createElement("div");
+divTotalPrice.classList.add("text-center");
+let totalPrice = []
+for (i = 0; i < localStorage.length; i++) {
+    let article = JSON.parse(localStorage.getItem(localStorage.key(i)))
+    let calcul = article["price"] * article["amount"];
+    totalPrice.push(calcul)
+};
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
 console.log(totalPrice.reduce(reducer));
 elt.appendChild(divTotalPrice).innerHTML = "le prix total de votre commande est de " + totalPrice.reduce(reducer) + " euros"
 elt.appendChild(divRemoveArticle).appendChild(removeArticle).appendChild(removeArticleA).innerHTML = "vider votre panier"
@@ -235,7 +239,7 @@ email.required = true;
 
         }
         else {
-            alert("Seuls les caractères alpha sont pris en charge, aucun chiffre et/ou symbole n'est autorisé")
+            alert( " Pour votre nom et Prénom, Seuls les caractères alpha sont pris en charge, aucun chiffre et/ou symbole n'est autorisé")
             event.preventDefault()
         }
         if (validZipCode(zipCode.value)) {
